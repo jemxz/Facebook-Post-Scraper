@@ -1,0 +1,17 @@
+{
+  "name": "facebook-post-scraper",
+  "version": "1.0.0",
+  "description": "This is a tool used to scrape the posts of facebook, it uses browser automation to login and scrape data from facebook",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "jemail",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.4.0",
+    "dotenv": "^16.0.3",
+    "log-to-file": "^3.0.3",
+    "puppeteer": "^20.3.0"
+  }
+}
