@@ -12,6 +12,7 @@
     "axios": "^1.4.0",
     "dotenv": "^16.0.3",
     "log-to-file": "^3.0.3",
-    "puppeteer": "^20.3.0"
+    "puppeteer": "^20.3.0",
+    "puppeteer-core": "^20.4.0"
   }
 }

@@ -1,11 +1,7 @@
 const getAccounts = require("../services/getAccounts");
 const log = require("log-to-file");
 
-module.exports = async function login(page) {
-  //  A random number is used to choose an account randomly for the number of accounts
-  const randomNumber = Math.floor(Math.random() * 3);
-
-  const account = await getAccounts(1);
+module.exports = async function login(page, account) {
   // getting Facebook account information for loging in purpouses
   const accountEmail = account.primaryEmailAddress;
   const password = account.primaryEmailPassword;
