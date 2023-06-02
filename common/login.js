@@ -1,4 +1,3 @@
-const getAccounts = require("../services/getAccounts");
 const log = require("log-to-file");
 
 module.exports = async function login(page, account) {
@@ -14,11 +13,11 @@ module.exports = async function login(page, account) {
     });
     // ENTERING EMAIL AND PASSWORD //
     await page.waitForSelector("#email");
-    await page.type("#email", accountEmail, { delay: 30 });
+    await page.type("#email", accountEmail, { delay: 40 });
 
     await page.waitForSelector("#pass");
     await page.focus("#pass");
-    await page.type("#pass", password, { delay: 30 });
+    await page.type("#pass", password, { delay: 40 });
 
     await page.keyboard.press("Enter");
     await page.waitForNavigation();

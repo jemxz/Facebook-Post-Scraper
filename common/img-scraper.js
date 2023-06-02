@@ -1,29 +1,29 @@
 module.exports = async function getImage(divSelector, page) {
-  const images = [];
   try {
     let div_selector = divSelector;
+    const imageLinks = await page.evaluate(() => {
+      const elements = document.querySelectorAll("i.img._1-yc.profpic"); // Replace with the class selector for the image tags
+      const links = [];
 
-    let list_length = await page.evaluate((sel) => {
-      let elements = Array.from(document.querySelectorAll(sel));
-      return elements.length;
-    }, div_selector);
+      for (let i = 1; i < elements.length; i++) {
+        const element = elements[i];
+        if (element) {
+          const imageLink = element.style.backgroundImage
+            .replace('url("', "")
+            .replace('")', "")
+            .replace(/\\3a /g, ":")
+            .replace(/\\26 /g, "&")
+            .replace(/\\3d /g, "=")
+            .replace(/\\'/g, "'");
+          links.push(imageLink);
+        }
+      }
 
-    console.log(list_length);
+      return links;
+    });
 
-    for (let i = 0; i < list_length; i++) {
-      var href = await page.evaluate(
-        (l, sel) => {
-          let elements = Array.from(document.querySelectorAll("img" + sel));
-          return elements[l] ? elements[l].src : "";
-        },
-        i,
-        div_selector
-      );
-      images.push(href);
-    }
+    return imageLinks;
   } catch (error) {
-    return console.log(error.message);
+    return console.log(error);
   }
-
-  return images;
 };
