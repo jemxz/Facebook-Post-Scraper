@@ -3,15 +3,14 @@ const $ = require("jquery");
 module.exports = async function getText(divSelector, page) {
   const text = [];
   try {
-    let post_selector = divSelector;
+    let timeOfPost_selector = divSelector;
 
-    var parentDiv = "._3q6s._78cw";
-
-    let post_length = await page.evaluate((sel) => {
+    let timeOfPosts = await page.evaluate((sel) => {
       let elements = Array.from(document.querySelectorAll(sel));
       return elements.length;
-    }, post_selector);
-    for (let i = 0; i < post_length; i++) {
+    }, timeOfPost_selector);
+
+    for (let i = 0; i < timeOfPosts; i++) {
       var content = await page.evaluate(
         (l, sel) => {
           let elements = Array.from(document.querySelectorAll(sel));
@@ -23,7 +22,7 @@ module.exports = async function getText(divSelector, page) {
           }
         },
         i,
-        post_selector
+        timeOfPost_selector
       );
       text.push(content);
     }

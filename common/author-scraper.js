@@ -13,10 +13,15 @@ module.exports = async function getLink(divSelector, page) {
       var href = await page.evaluate(
         (l, sel) => {
           const div = Array.from(document.querySelectorAll("h3" + sel));
-          const anchor = div[l]
-            .querySelector("span")
-            .querySelector("strong")
-            .querySelector("a");
+          var anchor;
+          if (div[l].querySelector("span")) {
+            var anchor = div[l]
+              .querySelector("span")
+              .querySelector("strong")
+              .querySelector("a");
+          } else {
+            anchor = div[l].querySelector("strong").querySelector("a");
+          }
 
           return anchor ? anchor.href : "";
         },

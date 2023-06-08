@@ -1,11 +1,14 @@
 const puppeteer = require("puppeteer");
-const login = require("./common/login");
+const schedule = require("node-schedule");
 const log = require("log-to-file");
+
+const login = require("./common/login");
 const getPosts = require("./core-scraper/post-scraper");
 const getAccounts = require("./services/getAccounts");
+const modify = require("./common/dom-modifier");
 
 async function getPost() {
-  const account = await getAccounts(1);
+  const account = await getAccounts(2);
   const targets = account.groupAdmissions;
   facebookIds = [];
   targets.map((target) => {
@@ -27,13 +30,19 @@ async function getPost() {
     const pages = await Promise.all(
       facebookIds.map((facebookId) => browser.newPage())
     );
-    for (let i = 0; i < 2; i++) {
+    for (let i = 0; i < 3; i++) {
       await pages[i].setUserAgent(
         "Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1"
       );
       await pages[i].goto(facebookIds[i]);
+      await modify(pages[i]);
     }
-    await getPosts(pages);
+
+    await getPosts(pages, account);
+    schedule.scheduleJob("0 */8 * * *", async () => {
+      await page.reload();
+      await getPosts(pages, account);
+    });
   } catch (error) {
     console.log(error);
     log(error, "./log/error.log");

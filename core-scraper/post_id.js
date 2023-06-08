@@ -11,6 +11,6 @@ module.exports = async function getPostIds(page, selector) {
       postId: postsIds[i].slice(tempIndexOfPermaLink + 11, tempIndex),
     });
   }
-
+  console.log("postId and URL: " + result.length);
   return result;
 };
