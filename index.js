@@ -15,12 +15,14 @@ async function getPost() {
     facebookIds.push("https://m.facebook.com/" + target.facebookId);
   });
   const browser = await puppeteer.launch({
-    headless: false, // Running the browser in non-headless mode for visibility
+    headless: "new", // Running the browser in non-headless mode for visibility
     defaultViewport: null,
     args: [
       "--disable-notifications", // Disabling notifications
       "--disable-dev-shm-usage", // Disabling shared memory usage
       "--no-sandbox",
+      "--disable-setuid-sandbox",
+      "--single-process",
     ],
   });
   try {
