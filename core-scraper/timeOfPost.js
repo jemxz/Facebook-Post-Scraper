@@ -2,7 +2,7 @@ const timeScraper = require("../common/time-scraper");
 
 module.exports = async function getTime(page, divSelector) {
   const times = await timeScraper(page, divSelector);
-  console.log(times);
+  //console.log(times);
 
   // Get the current date and time
   const currentDate = new Date();

@@ -9,13 +9,11 @@ const getAccounts = require("./services/getAccounts");
 const randomWaitTime = require("./common/randomWaitTime");
 
 async function getPost() {
-  proxyUserName = process.env.USERNAME_PROXY;
-  proxyPassword = process.env.PASSWORD_PROXY;
-  proxyIP = process.env.IP_PROXY;
+  const username = process.env.USERNAME_PROXY;
+  const password = process.env.PASSWORD_PROXY;
+  const proxyIP = process.env.IP_PROXY;
 
-  console.log(proxyUserName, proxyIP, proxyPassword);
-
-  const account = await getAccounts(2);
+  const account = await getAccounts(0);
   const targets = account.groupAdmissions;
   facebookIds = [];
   targets.map((target) => {
@@ -36,7 +34,7 @@ async function getPost() {
   });
   try {
     const page = await browser.newPage(); // Creating a new page instance
-    await page.authenticate({ proxyUserName, proxyPassword }); // Autenticateing proxy
+    await page.authenticate({ username, password }); // Autenticateing proxy
     await login(page, account); // Calling the 'login module'  passing the 'page' as an argument
     const pages = await Promise.all(
       facebookIds.map((facebookId) => browser.newPage())
@@ -60,8 +58,8 @@ async function getPost() {
     });
   } catch (error) {
     log(error, "./log/error.log");
-    // await browser.close();
-    // await getPost();
+    await browser.close();
+    await getPost();
     console.log(error);
   }
 }
