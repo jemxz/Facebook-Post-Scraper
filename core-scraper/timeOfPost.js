@@ -50,7 +50,7 @@ module.exports = async function getTime(page, divSelector) {
 
       return parsedDate.toLocaleString();
     } else if (dateString.includes("hr")) {
-      // Format: "7 hrs"
+      // Format: "7 hr"
       const [hours] = dateString.split(" ");
 
       // Subtract the hours from the current date

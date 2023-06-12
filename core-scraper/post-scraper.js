@@ -8,6 +8,7 @@ const getPost_id = require("./post_id");
 const getAuthor_image = require("./author_image_url");
 const getTime = require("./timeOfPost");
 const sendPosts = require("../services/sendPosts");
+const modifyDom = require("../common/dom-modifier");
 
 module.exports = async function createPosts(pages, account) {
   const facebookGroup = account.groupAdmissions;
@@ -15,16 +16,16 @@ module.exports = async function createPosts(pages, account) {
   const result = [];
 
   for (let j = 0; j < pages.length; j++) {
+    await modifyDom(pages[j]);
+
     // Selectors for All thing relate to posts
 
     const postLink_selector = "._52jc._5qc4._78cz._24u0._36xo";
     const postContent_selector = "._5rgt._5nk5._5msi";
-    const timeOfPost_selector = ".f5";
     const author_image_selector = "i.img._1-yc.profpic";
     const author_selector = "._52jd._52jb._52jh._5qc3._4vc-._3rc4._4vc-";
 
     ///////////////////////////////////// Scraping all things releated to posts  ////////////////////////////////////////////////////////////////////////////////
-    //  const author_id = await getAuthor_id(author_name_selector, pages[j]);
 
     const authorLinks = await getAuthor_id(author_selector, pages[j]);
 
@@ -33,8 +34,6 @@ module.exports = async function createPosts(pages, account) {
     const author_image = await getAuthor_image(author_image_selector, pages[j]);
 
     const postLinks = await getPost_id(postLink_selector, pages[j]);
-
-    // const post_url = await getPost_url(postLink_selector, pages[j]);
 
     const post_text = await getText(postContent_selector, pages[j]);
 
@@ -62,5 +61,5 @@ module.exports = async function createPosts(pages, account) {
     }
   }
   const finalResult = { data: result };
-  //sendPosts(finalResult);
+  sendPosts(finalResult);
 };

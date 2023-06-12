@@ -1,3 +1,5 @@
+const log = require("log-to-file");
+
 module.exports = async function getImage(divSelector, page) {
   try {
     let div_selector = divSelector;
@@ -25,6 +27,7 @@ module.exports = async function getImage(divSelector, page) {
 
     return imageLinks;
   } catch (error) {
+    log(error, "../log/error.log");
     return console.log(error);
   }
 };

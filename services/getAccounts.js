@@ -1,4 +1,5 @@
 var axios = require("axios");
+const log = require("log-to-file");
 require("dotenv").config();
 
 const apiKey = process.env.API_KEY;
@@ -30,7 +31,9 @@ async function getAccounts(randomNumber) {
       accountData = response.data.documents[randomNumber]; // Storing the account data from the response
     })
     .catch(function (error) {
+      log(error, "../log/error.log");
       console.error(error);
+      return;
     });
 
   return accountData; // Returning the retrieved account data

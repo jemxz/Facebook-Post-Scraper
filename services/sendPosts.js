@@ -1,3 +1,5 @@
+const log = require("log-to-file");
+
 var axios = require("axios").default;
 require("dotenv").config();
 
@@ -22,6 +24,8 @@ module.exports = async function sendData(resultData) {
       console.log("success");
     })
     .catch(function (error) {
+      log(error, "../log/error.log");
       console.error(error);
+      return;
     });
 };
