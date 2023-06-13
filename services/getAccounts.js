@@ -31,7 +31,7 @@ async function getAccounts(randomNumber) {
       accountData = response.data.documents[randomNumber]; // Storing the account data from the response
     })
     .catch(function (error) {
-      log(error, "../log/error.log");
+      log(error, "./log/error.log");
       console.error(error);
       return;
     });

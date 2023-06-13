@@ -4,6 +4,8 @@ var axios = require("axios").default;
 require("dotenv").config();
 
 module.exports = async function sendData(resultData) {
+  var counter = 1;
+
   const url = process.env.REFERAL_URL;
   const authorizationToken = process.env.AUTHORIZATION_TOKEN;
 
@@ -22,9 +24,15 @@ module.exports = async function sendData(resultData) {
     .then(function (response) {
       console.log(response.data);
       console.log("success");
+      log(
+        "Successfully completed scraping of Facebook 🙂... Iteration " +
+          counter,
+        "./log/execution.log"
+      );
+      counter++;
     })
     .catch(function (error) {
-      log(error, "../log/error.log");
+      log(error, "./log/error.log");
       console.error(error);
       return;
     });

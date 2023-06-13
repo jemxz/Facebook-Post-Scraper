@@ -51,7 +51,7 @@ async function getPost() {
       for (let i = 0; i < targets.length; i++) {
         var waitTime = randomWaitTime();
         await pages[i].reload();
-        await pages[i].setDefaultNavigationTimeout(30000);
+        await pages[i].setDefaultNavigationTimeout(40000);
         await pages[i].waitForTimeout(waitTime);
       }
       await getPosts(pages, account);

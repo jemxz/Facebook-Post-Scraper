@@ -106,6 +106,6 @@ module.exports = async function getTime(page, divSelector) {
   // Parse and format the dates in the array
   const formattedDates = times.map(parseDate);
 
-  console.log(formattedDates);
+  //console.log(formattedDates);
   return formattedDates;
 };
