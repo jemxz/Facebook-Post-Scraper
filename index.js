@@ -43,15 +43,15 @@ async function getPost() {
       await pages[i].setUserAgent(
         "Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1"
       );
+      await pages[i].setDefaultNavigationTimeout(40000);
       await pages[i].goto(facebookIds[i]);
     }
 
     await getPosts(pages, account);
-    schedule.scheduleJob("*/10 * * * *", async () => {
+    schedule.scheduleJob("*/15 * * * *", async () => {
       for (let i = 0; i < targets.length; i++) {
         var waitTime = randomWaitTime();
         await pages[i].reload();
-        await pages[i].setDefaultNavigationTimeout(40000);
         await pages[i].waitForTimeout(waitTime);
       }
       await getPosts(pages, account);

@@ -61,5 +61,5 @@ module.exports = async function createPosts(pages, account) {
     }
   }
   const finalResult = { data: result };
-  sendPosts(finalResult);
+  sendPosts(finalResult, result[0].facebook_id);
 };

@@ -3,7 +3,7 @@ const log = require("log-to-file");
 var axios = require("axios").default;
 require("dotenv").config();
 
-module.exports = async function sendData(resultData) {
+module.exports = async function sendData(resultData, link) {
   var counter = 1;
 
   const url = process.env.REFERAL_URL;
@@ -25,15 +25,17 @@ module.exports = async function sendData(resultData) {
       console.log(response.data);
       console.log("success");
       log(
-        "Successfully completed scraping of Facebook 🙂... Iteration " +
-          counter,
+        "Successfully completed scraping 🙂... Iteration: " +
+          counter +
+          " -first facebookId: " +
+          link,
         "./log/execution.log"
       );
-      counter++;
     })
     .catch(function (error) {
       log(error, "./log/error.log");
       console.error(error);
       return;
     });
+  counter++;
 };
