@@ -21,15 +21,18 @@ async function getPost() {
   });
 
   const browser = await puppeteer.launch({
-    headless: false, // Running the browser in non-headless mode for visibility
+    headless: "new", // Running the browser in non-headless mode for visibility
     defaultViewport: null,
     args: [
       "--disable-notifications",
+      "--disable-accelerated-2d-canvas",
+      "--ignore-certificate-errors",
       "--proxy-server=" + proxyIP, // Disabling notifications
       "--disable-dev-shm-usage", // Disabling shared memory usage
       "--no-sandbox",
       "--disable-setuid-sandbox",
       "--single-process",
+      "--disable-gpu",
     ],
   });
   try {

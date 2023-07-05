@@ -12,5 +12,6 @@ module.exports = async function getPostIds(page, selector) {
     });
   }
   console.log("postId and URL: " + result.length);
+  // console.log(result);
   return result;
 };
