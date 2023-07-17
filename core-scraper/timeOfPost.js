@@ -30,6 +30,11 @@ module.exports = async function getTime(page, divSelector) {
       const minutes = parseInt(string.split(" ")[0]);
       const epochTime = now - minutes * 60;
       return epochTime;
+    } else if (string.includes("at")) {
+      const dateTimeStr = string.replace(" at", ",");
+      const formatStr = "D MMMM, HH:mm";
+      const epochTime = moment(dateTimeStr, formatStr).unix();
+      return epochTime;
     } else {
       const dateStr = string.split(" at ")[0];
       const timeStr = string.split(" at ")[1];
