@@ -8,6 +8,7 @@ module.exports = async function getLink(divSelector, page) {
       let elements = Array.from(document.querySelectorAll(sel));
       return elements.length;
     }, div_selector);
+    console.log(list_length);
 
     for (let i = 0; i < list_length; i++) {
       var href = await page.evaluate(
@@ -19,8 +20,13 @@ module.exports = async function getLink(divSelector, page) {
               .querySelector("span")
               .querySelector("strong")
               .querySelector("a");
-          } else {
+          } else if (div[l].querySelector("strong").querySelector("a")) {
             anchor = div[l].querySelector("strong").querySelector("a");
+          } else {
+            var anchor = div[l]
+              .querySelector("strong")
+              .querySelector("span")
+              .querySelector("a");
           }
 
           return anchor ? anchor.href : "";
@@ -33,6 +39,6 @@ module.exports = async function getLink(divSelector, page) {
   } catch (error) {
     return console.log(error);
   }
-  // console.log(links);
+  console.log(links);
   return links;
 };
